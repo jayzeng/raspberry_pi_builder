@@ -54,7 +54,7 @@ jobs:
       - name: Build Artifact
         run: |
           cd builder
-          sudo packer build builder/image/rasbian_packer.json
+          sudo packer build image/rasbian_packer.json
         env:
           PACKER_LOG: 1
 
