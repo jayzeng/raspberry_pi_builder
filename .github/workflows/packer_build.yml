@@ -51,9 +51,6 @@ jobs:
           arguments: -syntax-only
           target: builder/image/rasbian_packer.json
 
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
-
       - name: Build Artifact
         run: |
           cd builder

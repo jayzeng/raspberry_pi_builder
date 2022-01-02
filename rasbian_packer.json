@@ -22,7 +22,7 @@
 		{
 			"type": "shell-local",
 			"inline": [
-				"sudo -E ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook -i '{{ user `img_mount_path` }}', -v -c chroot rasbian_packer.yml"
+				"sudo -E ANSIBLE_FORCE_COLOR=1 PYTHONUNBUFFERED=1 ansible-playbook -i '{{ user `img_mount_path` }}', -v -c chroot image/deploy_ansible.yml"
 			]
 		}
 	]

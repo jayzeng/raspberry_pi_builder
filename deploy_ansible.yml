@@ -9,11 +9,6 @@
       - libglib2.0-dev
       - xz-utils
     required_files:
-      - src: lil-ble
-        dest: /home/pi
-        is_directory: yes
-        mode: "0744"
-        needs_sudo: no
       - src: files/wpa_supplicant.conf
         dest: /boot/wpa_supplicant.conf
         is_directory: no
