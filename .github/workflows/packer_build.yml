@@ -39,10 +39,9 @@ jobs:
           go mod download
           go build
         working-directory: builder
-
-      - uses: actions/checkout@v2
-        with:
-          path: builder/lil-os
+      
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
 
       - name: Validate Template
         uses: hashicorp/packer-github-actions@master
