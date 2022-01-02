@@ -1,0 +1,41 @@
+---
+- hosts: all
+  vars:
+    system_packages:
+      - git
+      - python3
+      - python3-pip
+      - sqlite3
+      - libglib2.0-dev
+      - xz-utils
+    required_files:
+      - src: lil-ble
+        dest: /home/pi
+        is_directory: yes
+        mode: "0744"
+        needs_sudo: no
+      - src: files/wpa_supplicant.conf
+        dest: /boot/wpa_supplicant.conf
+        is_directory: no
+        mode: "0644"
+        needs_sudo: yes
+  tasks:
+    - name: copy required file
+      copy: 
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}" 
+        directory_mode: "{{ item.is_directory }}"
+        mode: "{{ item.mode }}"
+      become: "{{ item.needs_sudo }}"
+      with_items: "{{ required_files }}"
+
+    - name: Allow release-info to change for APT repositories
+      command: apt-get update -y --allow-releaseinfo-change
+      become: yes
+
+    - name: install system packages
+      apt:
+        name: "{{ system_packages }}"
+        state: present
+        update_cache: yes
+      become: yes
