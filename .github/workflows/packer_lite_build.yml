@@ -57,11 +57,11 @@ jobs:
 
       - name: Change ownership
         run: |
-          sudo chown runner:docker raspbian.img
+          sudo chown runner:docker raspbian-lite.img
         working-directory: builder
       
       - name: Artifact packer-builder-arm-image
         uses: actions/upload-artifact@v2
         with:
           name: raspbian_lite.img
-          path: ./builder/raspbian.img
+          path: ./builder/raspbian-lite.img

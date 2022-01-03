@@ -8,7 +8,7 @@
 			"iso_url": "https://downloads.raspberrypi.org/raspbian_full/images/raspbian_full-2020-02-14/2020-02-13-raspbian-buster-full.zip",
 			"iso_checksum": "sha256:c9c382b659bd96b859ccb9e2ac0c2292a91a37c286ab464f2f380d451077663d",
 			"mount_path": "{{ user `img_mount_path` }}",
-			"target_image_size": 4294967296,
+			"target_image_size": 7323254784,
 			"output_filename": "raspbian-full.img"
 		}
 	],

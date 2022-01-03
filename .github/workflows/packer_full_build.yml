@@ -58,11 +58,11 @@ jobs:
 
       - name: Change ownership
         run: |
-          sudo chown runner:docker raspbian.img
+          sudo chown runner:docker raspbian-full.img
         working-directory: builder
       
       - name: Artifact packer-builder-arm-image
         uses: actions/upload-artifact@v2
         with:
           name: raspbian-full.img
-          path: ./builder/raspbian.img
+          path: ./builder/raspbian-full.img
