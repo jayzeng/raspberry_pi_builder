@@ -1,0 +1,68 @@
+name: build 
+
+on:
+  push:
+    paths:
+      - 'github/**'
+  pull_request:
+  workflow_dispatch:
+raspbian_lite.img
+env:
+  REGION: us-central1
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    # solo-io/packer-builder-arm-image -> /builder
+    steps:
+      - name: Compile packer arm builder
+        run: |
+          sudo apt install kpartx qemu-user-static ansible
+
+      - name: Checkout builder repo
+        uses: actions/checkout@v2
+        with:
+          repository: solo-io/packer-builder-arm-image
+          path: builder
+          ref: v0.2.5   
+
+      - uses: actions/setup-go@v2
+        # The Go version to download (if necessary) and use.
+        with:
+          go-version: '^1.11' 
+      
+      - name: Compile packer arm builder
+        run: |
+          go mod download
+          go build
+        working-directory: builder
+
+      - uses: actions/checkout@v2
+        with:
+          path: builder/image
+      
+      - name: Validate Template
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: validate
+          arguments: -syntax-only
+          target: builder/image/rasbian_lite_packer.json
+
+      - name: Build Artifact
+        run: |
+          cd builder
+          sudo packer build image/rasbian_lite_packer.json
+        env:
+          PACKER_LOG: 1
+
+      - name: Change ownership
+        run: |
+          sudo chown runner:docker raspbian_lite.img
+        working-directory: builder
+      
+      - name: Artifact packer-builder-arm-image
+        uses: actions/upload-artifact@v2
+        with:
+          name: raspbian_lite.img
+          path: ./builder/raspbian_lite.img

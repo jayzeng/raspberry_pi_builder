@@ -2,8 +2,6 @@ name: build
 
 on:
   push:
-    branches: 
-      - develop
     paths:
       - 'github/**'
   pull_request:
@@ -49,12 +47,12 @@ jobs:
         with:
           command: validate
           arguments: -syntax-only
-          target: builder/image/rasbian_packer.json
+          target: builder/image/rasbian_full_packer.json
 
       - name: Build Artifact
         run: |
           cd builder
-          sudo packer build image/rasbian_packer.json
+          sudo packer build image/rasbian_full_packer.json
         env:
           PACKER_LOG: 1
 
