@@ -1,4 +1,4 @@
-name: build 
+name: Raspbian Full build 
 
 on:
   push:
@@ -64,5 +64,5 @@ jobs:
       - name: Artifact packer-builder-arm-image
         uses: actions/upload-artifact@v2
         with:
-          name: raspbian.img
+          name: raspbian-full.img
           path: ./builder/raspbian.img
