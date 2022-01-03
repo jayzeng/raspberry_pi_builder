@@ -1,4 +1,4 @@
-name: build 
+name: Raspbian lite build 
 
 on:
   push:
