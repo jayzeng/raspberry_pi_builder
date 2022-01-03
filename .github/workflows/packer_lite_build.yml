@@ -1,14 +1,11 @@
-name: build 
+name: Raspbian lite build 
 
 on:
   push:
-    branches: 
-      - develop
     paths:
       - 'github/**'
   pull_request:
   workflow_dispatch:
-
 env:
   REGION: us-central1
 
@@ -49,22 +46,22 @@ jobs:
         with:
           command: validate
           arguments: -syntax-only
-          target: builder/image/rasbian_packer.json
+          target: builder/image/rasbian_lite_packer.json
 
       - name: Build Artifact
         run: |
           cd builder
-          sudo packer build image/rasbian_packer.json
+          sudo packer build image/rasbian_lite_packer.json
         env:
           PACKER_LOG: 1
 
       - name: Change ownership
         run: |
-          sudo chown runner:docker raspbian.img
+          sudo chown runner:docker raspbian-lite.img
         working-directory: builder
       
       - name: Artifact packer-builder-arm-image
         uses: actions/upload-artifact@v2
         with:
-          name: raspbian.img
-          path: ./builder/raspbian.img
+          name: raspbian_lite.img
+          path: ./builder/raspbian-lite.img
